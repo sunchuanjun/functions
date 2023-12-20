@@ -18,3 +18,6 @@ npm run test
 
 -   [x] getNodes 递归获取子 Node
 -   [x] getParents 递归获取父 Node
+
+
+mac test
