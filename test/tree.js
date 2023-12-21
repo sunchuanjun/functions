@@ -1,5 +1,6 @@
+const _ = require("lodash");
 const dataJson = require("../tree/data.json");
-const { Tree, Node } = require("../tree/index");
+const { Tree, Node, generateRandomTreeData } = require("../tree/index");
 
 function _each(arr) {
 	if (!Array.isArray(arr)) return;
@@ -121,5 +122,26 @@ describe("Node", function () {
 				assert.ok(nodes.at(-1) === root);
 			});
 		});
+	});
+});
+
+describe("生成随机树结构数据", function () {
+	it("输出数组", function () {
+		for (let i = 1; i < 10; i++) {
+			assert.ok(Array.isArray(generateRandomTreeData(i)));
+		}
+	});
+	it("输出是树结构", function () {
+		for (let i = 1; i < 10; i++) {
+			let data = generateRandomTreeData(i);
+			data.forEach((item) => {
+				let paths = [];
+				let j = i;
+				while (--j) {
+					paths.push("children[0]");
+					assert.ok(_.get(item, paths.join(".")) !== undefined);
+				}
+			});
+		}
 	});
 });

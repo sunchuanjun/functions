@@ -4,5 +4,8 @@
   },
   "scripts": {
     "test": "mocha"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }
