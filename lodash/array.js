@@ -1,6 +1,7 @@
 module.exports = {
     chunk,
-    compact
+    compact,
+    difference
 }
 
 function chunk(arr, size = 1) {
@@ -15,4 +16,8 @@ function chunk(arr, size = 1) {
 
 function compact(arr) {
     return arr.filter(Boolean);
+}
+
+function difference(a, b) {
+    return a.filter(item => b.includes(item));
 }

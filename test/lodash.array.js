@@ -1,4 +1,4 @@
-const { chunk, compact } = require("../lodash/array");
+const { chunk, compact, difference } = require("../lodash/array");
 const { range, dropRight, flatten, isEqual } = require("lodash");
 var assert = require("assert");
 
@@ -27,4 +27,14 @@ describe("Array", function () {
             assert.ok(compact(arr).length === 0)
         })
     })
+    describe("#difference()", function () {
+        it("成功过滤", function () {
+            var a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            for (let i = 0; i < a.length; i++) {
+                var b = [a[i]];
+                assert.ok(isEqual(b, difference(a, b)))
+            }
+        })
+    })
+
 });
