@@ -102,8 +102,33 @@ const generateRandomTreeData = (() => {
 	};
 })();
 
+/**
+ * 
+ * @param {string[]} paths 
+ */
+function pathsToTree(paths) {
+	const tree = [];
+	paths.forEach(path => {
+		const arr = path.split("/");
+		let length = arr.length;
+		let i = 0;
+		let parentChildren = tree;
+		while (i < length) {
+			const label = arr[i];
+			const find = parentChildren.find(node => node.label === label);
+			const obj = find || { ...{ label }, children: i + 1 !== length ? [] : undefined };
+			if (!find) parentChildren.push(obj);
+			parentChildren = obj.children;
+			i++;
+		}
+	});
+	return tree;
+}
+
+
 module.exports = {
 	Tree,
 	Node,
 	generateRandomTreeData,
+	pathsToTree,
 };

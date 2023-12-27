@@ -6,6 +6,7 @@
     "test": "mocha"
   },
   "dependencies": {
+    "dayjs": "^1.11.10",
     "lodash": "^4.17.21"
   }
 }

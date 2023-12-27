@@ -1,6 +1,8 @@
 const _ = require("lodash");
+const dayjs = require("dayjs");
+const fs = require("fs");
 const dataJson = require("../tree/data.json");
-const { Tree, Node, generateRandomTreeData } = require("../tree/index");
+const { Tree, Node, generateRandomTreeData, pathsToTree } = require("../tree/index");
 
 function _each(arr) {
 	if (!Array.isArray(arr)) return;
@@ -14,7 +16,7 @@ const tree = new Tree();
 const root = new Node();
 const treeData = tree.loop(dataJson, root);
 
-var assert = require("assert");
+const assert = require("assert");
 describe("Tree", function () {
 	describe("#loop()", function () {
 		it("转换后个数相同", function () {
@@ -143,5 +145,34 @@ describe("生成随机树结构数据", function () {
 				}
 			});
 		}
+	});
+});
+
+
+function randomDate() {
+
+	const start = new Date('2021-10-20 09:09:09').getTime();
+
+	const end = Date.now();
+
+	const random = Math.random();
+
+	const miss = parseInt(random * (end - start));
+
+	return dayjs(start + miss).format('YYYY/MM/DD');
+
+}
+
+describe("路径组转树", function () {
+
+	const paths = Array(100).fill().map(() => randomDate());
+
+	const tree = pathsToTree(paths);
+
+	it("输出数组", function () {
+		assert.ok(Array.isArray(tree));
+	});
+	it("输出是树结构", function () {
+		fs.writeFileSync("./pathsTree.json", JSON.stringify(tree, null, '\t'));
 	});
 });
