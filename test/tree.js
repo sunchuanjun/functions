@@ -19,6 +19,7 @@ const treeData = tree.loop(dataJson, root);
 const assert = require("assert");
 describe("Tree", function () {
 	describe("#loop()", function () {
+
 		it("转换后个数相同", function () {
 			assert.ok(_each(dataJson).length === _each(treeData).length);
 		});
@@ -43,6 +44,23 @@ describe("Tree", function () {
 					assert.ok(childNode instanceof Node);
 				});
 		});
+		it("node.zoom === node.getParents().length", function () {
+			_each(treeData).forEach((node) => {
+				assert.ok(node.zoom === node.getParents().length)
+			});
+		})
+		it("flat",function() {
+			Tree.flat(treeData).map(node => {
+				assert.ok(node instanceof Node)
+			})
+		})
+		it("检索指定zoom的nodes", function () {
+			for (let index = 0; index < 10; index++) {
+				Tree.searchZoom(treeData, index).map(node => {
+					assert.ok(node instanceof Node)
+				})
+			};
+		})
 	});
 	describe("#search()", function () {
 		it("结果个数正确", function () {

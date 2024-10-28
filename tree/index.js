@@ -1,10 +1,12 @@
 class Tree {
-	loop(data, parentNode) {
+	loop(data, parentNode, zoom = 0) {
 		if (!Array.isArray(data)) return;
+		zoom++;
 		return data.map((item) => {
 			const node = new Node(item);
 			node.parent = parentNode;
-			node.children = this.loop(item.children, node);
+			node.zoom = zoom;
+			node.children = this.loop(item.children, node, zoom);
 			return node;
 		});
 	}
@@ -27,6 +29,21 @@ Tree.search = function (nodes, filter, done) {
 	}
 	return res.flat().filter(Boolean);
 };
+
+Tree.flat = function (nodes) {
+	return Tree.search(
+		nodes,
+		() => true
+	);
+}
+
+Tree.searchZoom = function (nodes, zoom) {
+	return Tree.search(
+		nodes,
+		(node) => node.zoom === zoom
+	);
+}
+
 
 Tree.find = function (nodes, filter) {
 	let findNode;
