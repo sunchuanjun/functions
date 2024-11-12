@@ -37,7 +37,7 @@ Tree.flat = function (nodes) {
 	);
 }
 
-Tree.searchZoom = function (nodes, zoom) {
+Tree.searchZoomNodes = function (nodes, zoom) {
 	return Tree.search(
 		nodes,
 		(node) => node.zoom === zoom
